@@ -161,7 +161,7 @@ async function connect() {
   inputStream = port.readable;
 
   await port.setSignals({ dataTerminalReady: false, requestToSend:true }); //normal
-  await new Promise(resolve => setTimeout(resolve, 200));
+  // await new Promise(resolve => setTimeout(resolve, 200));
 
   await port.setSignals({ dataTerminalReady: true, requestToSend:false });
   await new Promise(resolve => setTimeout(resolve, 200));
