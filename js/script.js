@@ -61,7 +61,7 @@ const USB_RAM_BLOCK = 0x800;
 const ESP_RAM_BLOCK = 0x1800;
 
 // Timeouts
-const DEFAULT_TIMEOUT = 3000;
+const DEFAULT_TIMEOUT = 30000;
 const CHIP_ERASE_TIMEOUT = 600000;             // timeout for full chip erase in ms
 const MAX_TIMEOUT = CHIP_ERASE_TIMEOUT * 2;    // longest any command can run in ms
 const SYNC_TIMEOUT = 100;                      // timeout for syncing with bootloader in ms
@@ -159,6 +159,15 @@ async function connect() {
 
   outputStream = port.writable;
   inputStream = port.readable;
+
+  await port.setSignals({ dataTerminalReady: false, requestToSend:true }); //normal
+  await new Promise(resolve => setTimeout(resolve, 200));
+
+  await port.setSignals({ dataTerminalReady: true, requestToSend:false });
+  await new Promise(resolve => setTimeout(resolve, 200));
+
+  await port.setSignals({ dataTerminalReady: true });
+  await new Promise(resolve => setTimeout(resolve, 200));
 
   readLoop().catch((error) => {
     toggleUIConnected(false);
@@ -774,7 +783,7 @@ class EspLoader {
       }
     }
     if (data === null || data.length < statusLen) {
-      throw("Didn't get enough status bytes");
+      throw(`Didn't get enough status bytes ${opcode} ${data}`);
     }
     let status = data.slice(-statusLen, data.length);
     data = data.slice(0, -statusLen);
@@ -959,11 +968,13 @@ class EspLoader {
   };
 
   async setBaudrate(baud) {
+    logMsg("setBaudrate");
     if (this._chipfamily == ESP8266) {
       logMsg("Baud rate can only change on ESP32 and ESP32-S2");
     }
     let buffer = this.pack("<II", baud, 0);
     await this.checkCommand(ESP_CHANGE_BAUDRATE, buffer);
+    logMsg("ESP_CHANGE_BAUDRATE");
     if (getChromeVersion() < 86) {
       port.baudrate = baud;
     } else {
