@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git://github.com/adafruit/Adafruit_WebSerial_ESPTool.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "author": "Melissa LeBlanc-Williams",
   "license": "MIT",
   "type": "module",
