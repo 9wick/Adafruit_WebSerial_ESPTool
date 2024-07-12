@@ -1,5 +1,5 @@
 {
-  "name": "@adafruit/adafruit-webserial-esptool",
+  "name": "@9wick/adafruit-webserial-esptool",
   "version": "6.0.0",
   "description": "Flash ESP devices using WebSerial",
   "main": "dist/index.js",
