@@ -190,13 +190,25 @@ export class ESPLoader extends EventTarget {
         // otherwise, esp chip should be connected to computer via usb-serial
         // bridge chip like ch340,CP2102 etc.
         // use normal way to enter flash mode.
+
+        // old sequence
+        // await this.setDTR(false);
+        // await this.setRTS(true);
+        // await this.sleep(100);
+        // await this.setDTR(true);
+        // await this.setRTS(false);
+        // await this.sleep(50);
+        // await this.setDTR(false);
+
+        await this.setRTS(false);
+        await this.setDTR(false);
+        await this.sleep(10);
         await this.setDTR(false);
         await this.setRTS(true);
-        await this.sleep(100);
+        await this.sleep(10);
         await this.setDTR(true);
         await this.setRTS(false);
-        await this.sleep(50);
-        await this.setDTR(false);
+
       }
     } else {
       // just reset

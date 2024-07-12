@@ -22,6 +22,15 @@ const progress = document.querySelectorAll(".upload .progress-bar");
 const offsets = document.querySelectorAll(".upload .offset");
 const appDiv = document.getElementById("app");
 
+const toHex = (value, size = 2) => {
+  let hex = value.toString(16).toUpperCase();
+  if (hex.startsWith("-")) {
+    return "-0x" + hex.substring(1).padStart(size, "0");
+  } else {
+    return "0x" + hex.padStart(size, "0");
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   butConnect.addEventListener("click", () => {
     clickConnect().catch(async (e) => {
@@ -192,6 +201,7 @@ async function clickConnect() {
     error: (...args) => errorMsg(...args),
   });
   try {
+    esploader.debug = true;
     await esploader.initialize();
 
     logMsg("Connected to " + esploader.chipName);
