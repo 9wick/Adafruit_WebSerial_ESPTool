@@ -1,5 +1,5 @@
-import { CHIP_FAMILY_ESP32, CHIP_FAMILY_ESP32S2, CHIP_FAMILY_ESP32S3, CHIP_FAMILY_ESP8266, CHIP_FAMILY_ESP32C2, CHIP_FAMILY_ESP32C3, CHIP_FAMILY_ESP32C6, CHIP_FAMILY_ESP32H2 } from "../const";
-import { toByteArray } from "../util";
+import { CHIP_FAMILY_ESP32, CHIP_FAMILY_ESP32S2, CHIP_FAMILY_ESP32S3, CHIP_FAMILY_ESP8266, CHIP_FAMILY_ESP32C2, CHIP_FAMILY_ESP32C3, CHIP_FAMILY_ESP32C6, CHIP_FAMILY_ESP32H2 } from "../const.js";
+import { toByteArray } from "../util.js";
 export const getStubCode = async (chipFamily) => {
     let stubcode;
     if (chipFamily == CHIP_FAMILY_ESP32) {

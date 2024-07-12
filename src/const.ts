@@ -1,4 +1,4 @@
-import { toByteArray } from "./util";
+import { toByteArray } from "./util.js";
 
 export interface Logger {
   log(msg: string, ...args: any[]): void;

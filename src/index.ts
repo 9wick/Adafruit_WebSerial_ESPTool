@@ -1,8 +1,8 @@
-import { ESP_ROM_BAUD, Logger } from "./const";
-import { ESPLoader } from "./esp_loader";
+import { ESP_ROM_BAUD, Logger } from "./const.js";
+import { ESPLoader } from "./esp_loader.js";
 
-export type { Logger } from "./const";
-export { ESPLoader } from "./esp_loader";
+export type { Logger } from "./const.js";
+export { ESPLoader } from "./esp_loader.js";
 
 export {
   CHIP_FAMILY_ESP32,
@@ -12,7 +12,8 @@ export {
   CHIP_FAMILY_ESP32C3,
   CHIP_FAMILY_ESP32C6,
   CHIP_FAMILY_ESP32H2,
-} from "./const";
+  ESP_ROM_BAUD
+} from "./const.js";
 
 export const connect = async (logger: Logger) => {
   // - Request a port and open a connection.

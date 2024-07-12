@@ -1,4 +1,4 @@
-import { Logger, ChipFamily, SpiFlashAddresses } from "./const";
+import { Logger, ChipFamily, SpiFlashAddresses } from "./const.js";
 export declare class ESPLoader extends EventTarget {
     port: SerialPort;
     logger: Logger;

@@ -1,4 +1,4 @@
-import { toByteArray } from "./util";
+import { toByteArray } from "./util.js";
 export const baudRates = [
     115200, 128000, 153600, 230400, 460800, 921600, 1500000, 2000000,
 ];

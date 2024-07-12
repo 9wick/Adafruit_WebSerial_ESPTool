@@ -46,12 +46,12 @@ import {
   CHIP_DETECT_MAGIC_REG_ADDR,
   CHIP_DETECT_MAGIC_VALUES,
   SlipReadError,
-} from "./const";
-import { getStubCode } from "./stubs";
-import { hexFormatter, sleep, slipEncode, toHex } from "./util";
+} from "./const.js";
+import { getStubCode } from "./stubs/index.js";
+import { hexFormatter, sleep, slipEncode, toHex } from "./util.js";
 // @ts-ignore
 import { deflate } from "pako/dist/pako.esm.mjs";
-import { pack, unpack } from "./struct";
+import { pack, unpack } from "./struct.js";
 
 export class ESPLoader extends EventTarget {
   chipFamily!: ChipFamily;

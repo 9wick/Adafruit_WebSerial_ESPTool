@@ -1,4 +1,4 @@
-import { ChipFamily } from "../const";
+import { ChipFamily } from "../const.js";
 interface Stub {
     text: number[];
     data: number[];
