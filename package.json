@@ -1,6 +1,6 @@
 {
   "name": "@9wick/adafruit-webserial-esptool",
-  "version": "6.0.0-beta.3",
+  "version": "6.0.0-beta.4",
   "description": "Flash ESP devices using WebSerial",
   "type": "module",
   "main": "dist/index.js",

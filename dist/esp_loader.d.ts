@@ -23,6 +23,7 @@ export declare class ESPLoader extends EventTarget {
     readLoop(): Promise<void>;
     sleep(ms?: number): Promise<unknown>;
     state_DTR: boolean;
+    state_RTS: boolean;
     setRTS(state: boolean): Promise<void>;
     setDTR(state: boolean): Promise<void>;
     hardReset(bootloader?: boolean): Promise<void>;

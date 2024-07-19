@@ -18,6 +18,7 @@ export class ESPLoader extends EventTarget {
         this.connected = true;
         this.flashSize = null;
         this.state_DTR = false;
+        this.state_RTS = false;
     }
     get _inputBuffer() {
         return this._parent ? this._parent._inputBuffer : this.__inputBuffer;
@@ -81,7 +82,7 @@ export class ESPLoader extends EventTarget {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
     async setRTS(state) {
-        await this.port.setSignals({ requestToSend: state });
+        await this.port.setSignals({ requestToSend: state, dataTerminalReady: this.state_DTR });
         // # Work-around for adapters on Windows using the usbser.sys driver:
         // # generate a dummy change to DTR so that the set-control-line-state
         // # request is sent with the updated RTS state and the same DTR state
@@ -90,7 +91,7 @@ export class ESPLoader extends EventTarget {
     }
     async setDTR(state) {
         this.state_DTR = state;
-        await this.port.setSignals({ dataTerminalReady: state });
+        await this.port.setSignals({ requestToSend: this.state_RTS, dataTerminalReady: state });
     }
     async hardReset(bootloader = false) {
         this.logger.log("Try hard reset.");
