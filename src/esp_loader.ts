@@ -151,6 +151,7 @@ export class ESPLoader extends EventTarget {
   state_DTR = false;
   state_RTS = false;
   async setRTS(state: boolean) {
+    this.state_RTS = state;
     await this.port.setSignals({ requestToSend: state, dataTerminalReady: this.state_DTR });
     // # Work-around for adapters on Windows using the usbser.sys driver:
     // # generate a dummy change to DTR so that the set-control-line-state
