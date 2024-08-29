@@ -528,7 +528,7 @@ export class ESPLoader extends EventTarget {
       await this.port.close();
 
       // Reopen Port
-      await this.port.open({ baudRate: baud });
+      await this.port.open({ baudRate: baud, dataBits: 8, stopBits: 1, parity: "none" });
 
       // Restart Readloop
       this.readLoop();
