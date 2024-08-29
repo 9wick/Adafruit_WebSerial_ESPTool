@@ -82,6 +82,7 @@ export class ESPLoader extends EventTarget {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
     async setRTS(state) {
+        this.state_RTS = state;
         await this.port.setSignals({ requestToSend: state, dataTerminalReady: this.state_DTR });
         // # Work-around for adapters on Windows using the usbser.sys driver:
         // # generate a dummy change to DTR so that the set-control-line-state
@@ -119,22 +120,13 @@ export class ESPLoader extends EventTarget {
                 // bridge chip like ch340,CP2102 etc.
                 // use normal way to enter flash mode.
                 // old sequence
-                await this.setDTR(false);
-                await this.setRTS(true);
+                await this.port.setSignals({ requestToSend: true, dataTerminalReady: false });
                 await this.sleep(100);
-                await this.setDTR(true);
-                await this.setRTS(false);
+                await this.port.setSignals({ requestToSend: false, dataTerminalReady: true });
                 await this.sleep(50);
-                await this.setDTR(false);
-                // new sequence
-                await this.setRTS(false);
-                await this.setDTR(false);
-                await this.sleep(50);
-                await this.setDTR(false);
-                await this.setRTS(true);
-                await this.sleep(50);
-                await this.setDTR(true);
-                await this.setRTS(false);
+                await this.port.setSignals({ requestToSend: false, dataTerminalReady: false });
+                this.state_DTR = false;
+                this.state_RTS = false;
             }
         }
         else {

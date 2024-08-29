@@ -194,23 +194,13 @@ export class ESPLoader extends EventTarget {
         // use normal way to enter flash mode.
 
         // old sequence
-        await this.setDTR(false);
-        await this.setRTS(true);
+        await this.port.setSignals({ requestToSend: true, dataTerminalReady: false });
         await this.sleep(100);
-        await this.setDTR(true);
-        await this.setRTS(false);
+        await this.port.setSignals({ requestToSend: false, dataTerminalReady: true });
         await this.sleep(50);
-        await this.setDTR(false);
-
-        // new sequence
-        await this.setRTS(false);
-        await this.setDTR(false);
-        await this.sleep(50);
-        await this.setDTR(false);
-        await this.setRTS(true);
-        await this.sleep(50);
-        await this.setDTR(true);
-        await this.setRTS(false);
+        await this.port.setSignals({ requestToSend: false, dataTerminalReady: false });
+        this.state_DTR = false;
+        this.state_RTS = false;
 
       }
     } else {
