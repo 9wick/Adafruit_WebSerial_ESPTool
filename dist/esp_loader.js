@@ -131,9 +131,11 @@ export class ESPLoader extends EventTarget {
         }
         else {
             // just reset
-            await this.setRTS(true); // EN->LOW
+            await this.port.setSignals({ requestToSend: true, dataTerminalReady: false }); // EN->LOW
             await this.sleep(100);
-            await this.setRTS(false);
+            await this.port.setSignals({ requestToSend: false, dataTerminalReady: false });
+            this.state_DTR = false;
+            this.state_RTS = false;
         }
         await new Promise((resolve) => setTimeout(resolve, 1000));
     }
